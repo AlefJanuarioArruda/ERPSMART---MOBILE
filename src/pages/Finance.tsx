@@ -284,7 +284,7 @@ export const Finance: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Usage Limit Banner for Non-Subscribers */}
       {!usageStatus.isSubscriptionActive && showBanner && (
         <UsageLimitBanner 
@@ -318,7 +318,7 @@ export const Finance: React.FC = () => {
       
 
       {/* Financial Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -392,9 +392,9 @@ export const Finance: React.FC = () => {
             <button
               onClick={() => handleAddTransaction('income')}
               disabled={!usageStatus.isSubscriptionActive}
-              className={`group flex flex-col items-center p-4 rounded-lg border-2 border-dashed transition-all duration-200 ${
+              className={`group flex flex-col items-center p-3 sm:p-4 rounded-lg border-2 border-dashed transition-all duration-200 touch-target ${
                 usageStatus.isSubscriptionActive
-                  ? 'border-green-300 bg-green-50 hover:bg-green-100 hover:border-green-400'
+                  ? 'border-green-300 bg-green-50 hover:bg-green-100 hover:border-green-400 active:bg-green-200'
                   : 'border-gray-200 bg-gray-50 cursor-not-allowed'
               }`}
             >
@@ -421,9 +421,9 @@ export const Finance: React.FC = () => {
             <button
               onClick={() => handleAddTransaction('expense')}
               disabled={!usageStatus.isSubscriptionActive}
-              className={`group flex flex-col items-center p-4 rounded-lg border-2 border-dashed transition-all duration-200 ${
+              className={`group flex flex-col items-center p-3 sm:p-4 rounded-lg border-2 border-dashed transition-all duration-200 touch-target ${
                 usageStatus.isSubscriptionActive
-                  ? 'border-red-300 bg-red-50 hover:bg-red-100 hover:border-red-400'
+                  ? 'border-red-300 bg-red-50 hover:bg-red-100 hover:border-red-400 active:bg-red-200'
                   : 'border-gray-200 bg-gray-50 cursor-not-allowed'
               }`}
             >
@@ -450,9 +450,9 @@ export const Finance: React.FC = () => {
             <button
               onClick={() => handleAddTransaction('receivable')}
               disabled={!usageStatus.isSubscriptionActive}
-              className={`group flex flex-col items-center p-4 rounded-lg border-2 border-dashed transition-all duration-200 ${
+              className={`group flex flex-col items-center p-3 sm:p-4 rounded-lg border-2 border-dashed transition-all duration-200 touch-target ${
                 usageStatus.isSubscriptionActive
-                  ? 'border-blue-300 bg-blue-50 hover:bg-blue-100 hover:border-blue-400'
+                  ? 'border-blue-300 bg-blue-50 hover:bg-blue-100 hover:border-blue-400 active:bg-blue-200'
                   : 'border-gray-200 bg-gray-50 cursor-not-allowed'
               }`}
             >
@@ -479,9 +479,9 @@ export const Finance: React.FC = () => {
             <button
               onClick={() => handleAddTransaction('payable')}
               disabled={!usageStatus.isSubscriptionActive}
-              className={`group flex flex-col items-center p-4 rounded-lg border-2 border-dashed transition-all duration-200 ${
+              className={`group flex flex-col items-center p-3 sm:p-4 rounded-lg border-2 border-dashed transition-all duration-200 touch-target ${
                 usageStatus.isSubscriptionActive
-                  ? 'border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400'
+                  ? 'border-orange-300 bg-orange-50 hover:bg-orange-100 hover:border-orange-400 active:bg-orange-200'
                   : 'border-gray-200 bg-gray-50 cursor-not-allowed'
               }`}
             >
@@ -553,7 +553,7 @@ export const Finance: React.FC = () => {
       {/* Financial Records Table */}
       {filteredRecords.length > 0 ? (
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>

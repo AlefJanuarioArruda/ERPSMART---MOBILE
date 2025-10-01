@@ -362,7 +362,7 @@ export const Products: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Notification */}
       {notification && (
         <div className={`fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 ${
@@ -414,17 +414,17 @@ export const Products: React.FC = () => {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Meus Produtos</h1>
-          <p className="text-gray-600">Gerencie seu catálogo de produtos e estoque</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Meus Produtos</h1>
+          <p className="text-sm sm:text-base text-gray-600">Gerencie seu catálogo de produtos e estoque</p>
         </div>
         <button
           onClick={handleAddProduct}
           disabled={!usageStatus.canAdd.products}
-          className={`flex items-center px-4 py-2 rounded-lg transition-colors ${
+          className={`flex items-center justify-center px-4 py-2.5 rounded-lg transition-colors touch-target ${
             usageStatus.canAdd.products
-              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              ? 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           }`}
         >
@@ -447,7 +447,7 @@ export const Products: React.FC = () => {
 
       {/* Products Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filteredProducts.map((product) => {
             const stockStatus = getStockStatus(product.stock, product.min_stock);
             const profitMargin = product.price > 0 ? ((product.price - product.cost_price) / product.price * 100) : 0;

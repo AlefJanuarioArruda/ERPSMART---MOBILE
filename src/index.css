@@ -2,10 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile-first optimizations */
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+/* Touch-friendly buttons */
+@layer components {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 /* Responsive improvements */
 @media (max-width: 640px) {
   .sidebar-mobile {
-    width: 280px;
+    width: 85vw;
+    max-width: 320px;
   }
 }
 
@@ -22,5 +47,132 @@
     right: 0.5rem;
     left: 0.5rem;
     width: auto;
+    max-width: calc(100vw - 1rem);
   }
+}
+
+/* Improve mobile form inputs */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  button {
+    min-height: 44px;
+  }
+}
+
+/* Bottom navigation for mobile */
+.mobile-nav-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  padding: 0.5rem 0;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-nav-bottom {
+    display: block;
+  }
+
+  .main-content {
+    padding-bottom: 4rem;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Prevent zoom on iOS inputs */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Pull to refresh prevention */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Safe area for notch devices */
+@supports (padding: max(0px)) {
+  .safe-area-bottom {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-area-top {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+}
+
+/* Improve touch scrolling momentum */
+.overflow-y-auto, .overflow-x-auto, .overflow-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Better button active states for mobile */
+@media (hover: none) {
+  button:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-in-out;
+  }
+}
+
+/* Optimize table scrolling on mobile */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+}
+
+/* Improve modal display on mobile */
+@media (max-width: 640px) {
+  .modal-content {
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+}
+
+/* Swipe indicators */
+.swipe-indicator {
+  touch-action: pan-x;
+}
+
+/* Loading skeleton animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  animation: shimmer 2s infinite;
+  background: linear-gradient(to right, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+  background-size: 1000px 100%;
 }

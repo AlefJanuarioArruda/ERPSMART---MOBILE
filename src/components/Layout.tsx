@@ -88,10 +88,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const getCurrentPage = () => {
     const path = location.pathname;
     if (path === '/' || path === '/dashboard') return 'dashboard';
-    return path.substring(1); // Remove leading slash
+    return path.substring(1);
   };
 
   const currentPage = getCurrentPage();
+
+  const mainNavigationItems = [
+    { id: 'dashboard', label: 'Início', icon: Home },
+    { id: 'products', label: 'Produtos', icon: Package },
+    { id: 'sales', label: 'Vendas', icon: ShoppingCart },
+    { id: 'finance', label: 'Financeiro', icon: DollarSign },
+    { id: 'reports', label: 'Mais', icon: BarChart3 }
+  ];
+
   return (
     <div className="h-screen bg-gray-50 flex overflow-hidden">
       {/* Mobile sidebar overlay */}
@@ -102,34 +111,35 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Desktop Sidebar */}
       <aside className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:flex lg:flex-col
+        fixed inset-y-0 left-0 z-50 w-72 sm:w-80 md:w-64 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 lg:flex lg:flex-col
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="flex flex-col h-full">
           {/* Logo */}
-          <div className="flex items-center justify-between h-20 px-6 mt-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                <Brain className="w-5 h-5 text-white" />
+          <div className="flex items-center justify-between h-16 sm:h-20 px-4 sm:px-6 mt-2 sm:mt-4">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
               <span className="text-lg sm:text-xl font-bold text-gray-900">ERP Smart</span>
             </div>
             <button
               onClick={() => setSidebarOpen(false)}
-              className="lg:hidden p-1 rounded-md hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100 touch-target"
+              aria-label="Fechar menu"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2">
+          <nav className="flex-1 px-3 sm:px-4 py-4 sm:py-6 space-y-1.5 sm:space-y-2 overflow-y-auto">
             {navigationItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
-              
+
               return (
                 <button
                   key={item.id}
@@ -138,15 +148,15 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     setSidebarOpen(false);
                   }}
                   className={`
-                    w-full flex items-center px-3 py-2.5 rounded-lg text-left transition-colors duration-200
-                    ${isActive 
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' 
-                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    w-full flex items-center px-3 sm:px-4 py-3 sm:py-3 rounded-lg text-left transition-all duration-200 touch-target
+                    ${isActive
+                      ? 'bg-blue-50 text-blue-700 shadow-sm'
+                      : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 active:bg-gray-100'
                     }
                   `}
                 >
-                  <Icon className={`w-5 h-5 mr-3 ${isActive ? 'text-blue-700' : 'text-gray-400'}`} />
-                  <span className="font-medium text-sm sm:text-base">{item.label}</span>
+                  <Icon className={`w-5 h-5 sm:w-5 sm:h-5 mr-3 ${isActive ? 'text-blue-700' : 'text-gray-400'}`} />
+                  <span className="font-medium text-base sm:text-base">{item.label}</span>
                 </button>
               );
             })}
@@ -193,55 +203,50 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Main content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center space-x-4">
+        <header className="h-14 md:h-16 bg-white border-b border-gray-200 flex items-center justify-between px-3 sm:px-6 shrink-0">
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100"
+              className="lg:hidden p-2 rounded-md hover:bg-gray-100 touch-target"
+              aria-label="Abrir menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <h1 className="text-lg sm:text-xl font-semibold text-gray-900 capitalize">
+            <h1 className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 capitalize truncate">
               {navigationItems.find(item => item.id === currentPage)?.label || 'Dashboard'}
             </h1>
           </div>
 
-          <div className="flex items-center space-x-2 sm:space-x-4">
-
+          <div className="flex items-center space-x-1 sm:space-x-2">
             {/* Profile Dropdown */}
             <div className="relative" ref={profileRef}>
-              <button 
+              <button
                 onClick={() => {
                   setProfileOpen(!profileOpen);
                 }}
-                className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-100 transition-colors"
+                className="flex items-center space-x-1 sm:space-x-2 p-1.5 sm:p-2 rounded-full hover:bg-gray-100 transition-colors touch-target"
+                aria-label="Menu do perfil"
               >
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 sm:w-9 sm:h-9 bg-blue-100 rounded-full flex items-center justify-center overflow-hidden">
                   {user?.user_metadata?.avatar_url ? (
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      {user?.user_metadata?.avatar_url ? (
-                        <img
-                          src={user.user_metadata.avatar_url}
-                          alt={user?.user_metadata?.full_name || 'Usuário'}
-                          className="w-8 h-8 rounded-full object-cover"
-                        />
-                      ) : (
-                        <User className="w-6 h-6 text-blue-600" />
-                      )}
-                    </div>
+                    <img
+                      src={user.user_metadata.avatar_url}
+                      alt={user?.user_metadata?.full_name || 'Usuário'}
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   ) : (
-                    <User className="w-4 h-4 text-blue-600" />
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
                   )}
                 </div>
-                <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform ${profileOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 text-gray-600 transition-transform hidden sm:block ${profileOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {/* Profile Dropdown */}
               {profileOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-w-[calc(100vw-2rem)]">
+                <div className="absolute right-0 mt-2 w-72 sm:w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-w-[calc(100vw-1rem)] profile-dropdown">
                   <div className="p-4 border-b border-gray-200">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center overflow-hidden">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center overflow-hidden shrink-0">
                         {userAvatar ? (
                           <img
                             src={userAvatar}
@@ -266,38 +271,38 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <div className="py-2">
                     <button
                       onClick={handleViewProfile}
-                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors touch-target"
                     >
                       <Eye className="w-4 h-4 mr-3 text-gray-400" />
                       Ver perfil
                     </button>
                     <button
                       onClick={handleEditProfile}
-                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors touch-target"
                     >
                       <Edit className="w-4 h-4 mr-3 text-gray-400" />
                       Editar perfil
                     </button>
                     <button
                       onClick={handleEditProfile}
-                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors touch-target"
                     >
                       <CreditCard className="w-4 h-4 mr-3 text-gray-400" />
                       Gerenciar assinatura
                     </button>
                     <button
                       onClick={handleEditProfile}
-                      className="w-full flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 active:bg-gray-100 transition-colors touch-target"
                     >
                       <Lock className="w-4 h-4 mr-3 text-gray-400" />
                       Alterar senha
                     </button>
                   </div>
-                  
+
                   <div className="border-t border-gray-200 py-2">
                     <button
                       onClick={handleLogout}
-                      className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                      className="w-full flex items-center px-4 py-3 text-sm text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors touch-target"
                     >
                       <LogOut className="w-4 h-4 mr-3" />
                       Sair
@@ -310,10 +315,40 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 pb-20 md:pb-6">
           {children}
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 md:hidden safe-area-bottom">
+        <div className="flex items-center justify-around px-2 py-2">
+          {mainNavigationItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = currentPage === item.id;
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  navigate(`/${item.id === 'dashboard' ? 'dashboard' : item.id}`);
+                  setSidebarOpen(false);
+                }}
+                className={`
+                  flex flex-col items-center justify-center min-w-[60px] py-2 px-3 rounded-lg transition-all duration-200
+                  ${isActive
+                    ? 'text-blue-700 bg-blue-50'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }
+                `}
+              >
+                <Icon className={`w-5 h-5 mb-1 ${isActive ? 'text-blue-700' : 'text-gray-400'}`} />
+                <span className="text-xs font-medium">{item.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 };

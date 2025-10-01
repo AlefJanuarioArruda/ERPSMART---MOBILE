@@ -46,9 +46,9 @@ export const Dashboard: React.FC = () => {
   const recentSales = sales.slice(0, 5);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
         <MetricCard
           title="Receita do Mês"
           value={formatCurrency(dashboardMetrics.revenue.current)}
@@ -84,10 +84,10 @@ export const Dashboard: React.FC = () => {
           />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* AI Insights */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
             <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <TrendingUp className="w-5 h-5 mr-2 text-blue-600" />
               Seus Insights de IA
@@ -123,9 +123,9 @@ export const Dashboard: React.FC = () => {
         </div>
 
         {/* Quick Stats */}
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Stock Alerts */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <Package className="w-5 h-5 mr-2 text-amber-600" />
               Seus Alertas de Estoque
@@ -150,7 +150,7 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Recent Sales */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
               <ShoppingCart className="w-5 h-5 mr-2 text-green-600" />
               Suas Vendas Recentes
@@ -176,7 +176,7 @@ export const Dashboard: React.FC = () => {
           </div>
 
           {/* Quick Stats Summary */}
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl border border-blue-200 p-6">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border border-blue-200 p-4 sm:p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Resumo da Sua Conta</h3>
             <div className="space-y-3">
               <div className="flex justify-between items-center">
