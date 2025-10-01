@@ -1,25 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { 
-  Menu, 
-  X, 
-  Home, 
-  Package, 
-  Users, 
-  ShoppingCart, 
-  DollarSign, 
-  BarChart3, 
-  Settings, 
-  Brain,
-  User,
-  LogOut,
-  Eye,
-  Edit,
-  Lock,
-  ChevronDown,
-  CreditCard,
-  Crown
-} from 'lucide-react';
+import { Menu, X, Home, Package, Users, ShoppingCart, DollarSign, BarChart3, Settings, Brain, User, LogOut, Eye, CreditCard as Edit, Lock, ChevronDown, CreditCard, Crown } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useStripe } from '../hooks/useStripe';
 

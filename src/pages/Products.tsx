@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Search, Package, Edit, Trash2, AlertTriangle, Crown, X, Upload, Camera, Save, Eye, Grid, Palette, Ruler, Hash, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Search, Package, CreditCard as Edit, Trash2, AlertTriangle, Crown, X, Upload, Camera, Save, Eye, Grid2x2 as Grid, Palette, Ruler, Hash, ChevronDown, ChevronUp } from 'lucide-react';
 import { useSupabaseData } from '../hooks/useSupabaseData';
 import { useUsageLimits } from '../hooks/useUsageLimits';
 import { UpgradeModal } from '../components/UpgradeModal';
